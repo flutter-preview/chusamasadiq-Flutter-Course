@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercourse/components/textfield_widget.dart';
-import 'package:fluttercourse/screen/signup_screen.dart';
+import 'package:fluttercourse/screen/login_screen.dart';
+import '../components/textfield_widget.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailController = TextEditingController();
-  late TextEditingController _passwordController = TextEditingController();
+class _SignUpScreenState extends State<SignUpScreen> {
+  late final TextEditingController _emailController = TextEditingController();
+  late final TextEditingController _passwordController =
+      TextEditingController();
+  late final TextEditingController _usernameController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
               scale: 1.5,
             ),
             TextFieldWidget(
+                controller: _usernameController,
+                labelText: 'Username',
+                hintText: 'Username'),
+            const SizedBox(height: 20),
+            TextFieldWidget(
               controller: _emailController,
               labelText: 'Email',
               hintText: 'Email',
@@ -37,14 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Password',
               obscureText: true,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {}, child: const Text('Forgot Password'))
-              ],
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             SizedBox(
               height: 40,
               width: 400,
@@ -57,15 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Don\'t have account'),
+                const Text('Have an account'),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
                     },
-                    child: const Text('Sign Up'))
+                    child: const Text('Login'))
               ],
             )
           ],
