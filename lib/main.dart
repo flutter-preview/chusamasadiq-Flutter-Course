@@ -12,7 +12,9 @@ class FlutterCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white
+        useMaterial3: true,
+        colorSchemeSeed: Colors.green,
+        scaffoldBackgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

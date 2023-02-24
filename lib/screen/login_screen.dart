@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/components/button.dart';
 import 'package:fluttercourse/components/textfield_widget.dart';
+import 'package:fluttercourse/screen/forgot_screen.dart';
 import 'package:fluttercourse/screen/signup_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,8 +13,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailController = TextEditingController();
-  late TextEditingController _passwordController = TextEditingController();
+  late final TextEditingController _emailController = TextEditingController();
+  late final TextEditingController _passwordController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,31 +53,47 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {}, child: const Text('Forgot Password'))
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPassword(),
+                        ),
+                      );
+                    },
+                    child: const Text('Forgot Password'))
               ],
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 40,
-              width: 400,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Login'),
-              ),
-            ),
+            ButtonWidget(
+                title: 'Login',
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                        email: _emailController.text.toString(),
+                        password: _passwordController.text.toString(),
+                      ),
+                    ),
+                  );
+                }),
             const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Don\'t have account'),
+                const Text('Don\'t have an account'),
                 TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: const Text('Sign Up'))
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text('Sign Up'),
+                )
               ],
             )
           ],

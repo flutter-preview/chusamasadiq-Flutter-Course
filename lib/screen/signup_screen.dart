@@ -19,59 +19,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/online-delivery.png',
-              scale: 1.5,
-            ),
-            TextFieldWidget(
-                controller: _usernameController,
-                labelText: 'Username',
-                hintText: 'Username'),
-            const SizedBox(height: 20),
-            TextFieldWidget(
-              controller: _emailController,
-              labelText: 'Email',
-              hintText: 'Email',
-            ),
-            const SizedBox(height: 20),
-            TextFieldWidget(
-              controller: _passwordController,
-              labelText: 'Password',
-              hintText: 'Password',
-              obscureText: true,
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
-              height: 40,
-              width: 400,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Sign Up'),
-              ),
-            ),
-            const SizedBox(height: 50),
-            Row(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Have an account'),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text('Login'))
+                Image.asset(
+                  'assets/images/online-delivery.png',
+                  scale: 1.5,
+                ),
+                TextFieldWidget(
+                    controller: _usernameController,
+                    labelText: 'Username',
+                    hintText: 'Username'),
+                const SizedBox(height: 20),
+                TextFieldWidget(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  hintText: 'Email',
+                ),
+                const SizedBox(height: 20),
+                TextFieldWidget(
+                  controller: _passwordController,
+                  labelText: 'Password',
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  height: 40,
+                  width: 400,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Sign Up'),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Have an account'),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text('Login'))
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
