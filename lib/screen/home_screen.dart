@@ -1,39 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/screen/mainhome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  late String email;
-  late String password;
-
-  HomeScreen({super.key, required this.email, required this.password});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  int _selectedIndex = 0;
+  final List<Widget> _screens = <Widget>[
+    const MainHomeScreen(),
+    Text('Favourite'),
+    Text('Profile'),
+  ];
+
+  void onItemTapped (int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        centerTitle: true,
-      ),
       body: Center(
-        child: Container(
-          height: 200,
-          width: 300,
-          child: Card(
-            color: Colors.orangeAccent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Email: ${widget.email}'),
-                const SizedBox(height: 10),
-                Text('Password: ${widget.password}')
-              ],
-            ),
+        child: _screens.elementAt(_selectedIndex),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Favourite',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: onItemTapped,
       ),
     );
   }

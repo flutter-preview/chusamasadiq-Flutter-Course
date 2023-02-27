@@ -8,11 +8,8 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  late String name = '';
-
   @override
   Widget build(BuildContext context) {
-    print('SetState');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forgot Password'),
@@ -21,22 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(name),
-            const SizedBox(
-              height: 50,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    name = value;
-                  });
-                },
-              ),
-            )
-          ],
+          children: [],
         ),
       ),
     );
