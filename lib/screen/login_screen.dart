@@ -3,7 +3,7 @@ import 'package:fluttercourse/components/button.dart';
 import 'package:fluttercourse/components/textfield_widget.dart';
 import 'package:fluttercourse/screen/forgot_screen.dart';
 import 'package:fluttercourse/screen/signup_screen.dart';
-import 'home_screen.dart';
+import 'homefeed_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
+                      builder: (context) => HomeFeedScreen(),
                     ),
                   );
                 }),
