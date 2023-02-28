@@ -23,11 +23,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Delivery App'),
-          centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
@@ -46,51 +46,67 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               Container(
                 height: 55,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: TextFormField(
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
-                    label: Text('Tap to Search'),
+                    label: Text('Search Food'),
                   ),
                 ),
               ),
-              Expanded(
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  'Categories',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+              SizedBox(
+                height: 160,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: foodImages.length,
                   itemBuilder: (BuildContext context, index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: 180,
-                            child: AspectRatio(
-                              aspectRatio: 4 / 3,
-                              child: ClipRRect(
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                child: Image.asset(
-                                  foodImages[index],
-                                  fit: BoxFit.cover,
+                                border: Border.all(
+                                  color: Colors.orangeAccent,
+                                ),
+                              ),
+                              child: AspectRatio(
+                                aspectRatio: 4 / 3,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                    foodImages[index],
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Text(
-                          foodNames[index],
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            foodNames[index],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     );
                   },
                 ),
               ),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -101,7 +117,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                   )
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -114,6 +130,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                           child: Container(
                             height: 220,
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.orangeAccent,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: AssetImage(foodImages[index]),
