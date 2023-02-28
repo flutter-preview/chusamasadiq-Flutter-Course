@@ -15,6 +15,11 @@ class FlutterCourse extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           elevation: 5,
           centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         useMaterial3: true,
         colorSchemeSeed: Colors.orange,
