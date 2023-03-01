@@ -27,9 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Gain Height of the Screen
+    final  screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(screenHeight * 0.02),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -42,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: 'Email',
               hintText: 'Email',
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight / 50),
             TextFieldWidget(
               controller: _passwordController,
               labelText: 'Password',
@@ -64,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('Forgot Password'))
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight / 50),
             ButtonWidget(
                 title: 'Login',
                 onPress: () {
@@ -75,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   );
                 }),
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight / 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

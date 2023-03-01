@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/screen/favourite_screen.dart';
 import 'package:fluttercourse/screen/home_screen.dart';
+import 'package:fluttercourse/screen/profile_screen.dart';
 
 class HomeFeedScreen extends StatefulWidget {
   @override
@@ -11,8 +12,8 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screens = <Widget>[
     const HomeScreen(),
-    FavouriteScreen(),
-    Text('Profile'),
+    const FavouriteScreen(),
+    const ProfileScreen()
   ];
 
   void onItemTapped(int index) {
