@@ -18,12 +18,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(screenHeight * 0.02),
+          padding: EdgeInsets.all(screenWidth * 0.03),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,29 +36,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _usernameController,
                     labelText: 'Username',
                     hintText: 'Username'),
-                const SizedBox(height: 20),
+                SizedBox(height: screenWidth * 0.04),
                 TextFieldWidget(
                   controller: _emailController,
                   labelText: 'Email',
                   hintText: 'Email',
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenWidth * 0.04),
                 TextFieldWidget(
                   controller: _passwordController,
                   labelText: 'Password',
                   hintText: 'Password',
                   obscureText: true,
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: screenWidth * 0.04),
                 SizedBox(
-                  height: 40,
-                  width: 400,
+                  height: screenWidth * 0.12,
+                  width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {},
                     child: const Text('Sign Up'),
                   ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: screenWidth * 0.15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

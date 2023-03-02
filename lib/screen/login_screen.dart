@@ -27,12 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     // Gain Height of the Screen
-    final  screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
+
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(screenHeight * 0.02),
+        padding: EdgeInsets.all(screenHeight * 0.01),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: 'Email',
               hintText: 'Email',
             ),
-            SizedBox(height: screenHeight / 50),
+            SizedBox(height: screenHeight * 0.02),
             TextFieldWidget(
               controller: _passwordController,
               labelText: 'Password',
@@ -64,10 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                     },
-                    child: const Text('Forgot Password'))
+                    child: const FittedBox(child: Text('Forgot Password')))
               ],
             ),
-            SizedBox(height: screenHeight / 50),
+            SizedBox(height: screenHeight * 0.02),
             ButtonWidget(
                 title: 'Login',
                 onPress: () {
@@ -78,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   );
                 }),
-            SizedBox(height: screenHeight / 50),
+            SizedBox(height: screenHeight * 0.02),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Don\'t have an account'),
+                const FittedBox(child: Text('Don\'t have an account')),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
