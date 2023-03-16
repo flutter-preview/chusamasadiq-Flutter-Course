@@ -46,6 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _emailController,
               labelText: 'Email',
               hintText: 'Email',
+              onValidator: (value) =>
+              (value.isEmpty) ? 'Enter your email' : null,
             ),
             SizedBox(height: screenHeight * 0.02),
             TextFieldWidget(
@@ -53,6 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: 'Password',
               hintText: 'Password',
               obscureText: true,
+              onValidator: (value) =>
+              (value.isEmpty) ? 'Enter your email' : null,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
