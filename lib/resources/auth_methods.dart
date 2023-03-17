@@ -1,31 +1,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttercourse/utlis/utils.dart';
-import 'package:flutter/material.dart';
-import '../screen/homefeed_screen.dart';
 
 class AuthMethods {
+  // Firebase Auth Instance
   final _auth = FirebaseAuth.instance;
 
-  Future<void> signUpUser({
+  // Sign Up User Function
+  Future<String> signUpUser({
     required String email,
     required String password,
-    required BuildContext context,
   }) async {
+    String response;
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: email.toString(), password: password.toString());
-      if (userCredential != null) {
-        Utils.toastMessage('Account created successfully');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeFeedScreen(),
-          ),
-        );
-      }
+      await _auth.createUserWithEmailAndPassword(
+        email: email.toString(),
+        password: password.toString(),
+      );
+      response = 'success';
     } on FirebaseAuthException catch (ex) {
-      Utils.toastMessage(ex.message.toString());
+      return response = (ex.message.toString());
     }
+    return response;
+  }
+
+  // SignIn User Function
+  Future<String> signInUser({
+    required String email,
+    required String password,
+  }) async {
+    String response;
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email.toString(),
+        password: password.toString(),
+      );
+      response = 'success';
+    } on FirebaseAuthException catch (ex) {
+      return response = (ex.message.toString());
+    }
+    return response;
   }
 }

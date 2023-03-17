@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  late String title;
   late VoidCallback onPress;
+  final Widget child;
 
-  ButtonWidget({required this.title, required this.onPress});
+  ButtonWidget({super.key, required this.onPress, required this.child, required String title});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
-      width: 400,
       child: ElevatedButton(
         onPressed: onPress,
-        child: Text(title),
+        child: child,
       ),
     );
   }

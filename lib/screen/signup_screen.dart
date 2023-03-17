@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercourse/resources/auth_methods.dart';
 import 'package:fluttercourse/screen/homefeed_screen.dart';
 import 'package:fluttercourse/screen/login_screen.dart';
+import 'package:fluttercourse/utils/utils.dart';
 import '../components/textfield_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -15,9 +16,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
-  late final TextEditingController _usernameController =
-      TextEditingController();
+  late bool isLoading = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void signUpUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    String response = await AuthMethods().signUpUser(
+      email: _emailController.text.toString(),
+      password: _passwordController.text.toString(),
+    );
+    setState(() {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    if (response == 'success' && mounted) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeFeedScreen()));
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    if (response != 'success') {
+      Utils.toastMessage(response);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +96,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          AuthMethods().signUpUser(
-                            email: _emailController.text.toString(),
-                            password: _passwordController.text.toString(),
-                            context: context,
-                          );
+                          signUpUser();
                         }
                       },
-                      child: const Text('Sign Up'),
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.orange,
+                              ),
+                            )
+                          : const Text('Sign Up'),
                     ),
                   ),
                   SizedBox(height: screenWidth * 0.15),

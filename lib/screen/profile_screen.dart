@@ -69,7 +69,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             leading: Icon(Icons.location_city_outlined),
             title: Text('France'),
           ),
-          ButtonWidget(title: 'Sign Out', onPress: () {})
         ],
       ),
     );
