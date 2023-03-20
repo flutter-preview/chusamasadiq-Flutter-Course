@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/resources/auth_methods.dart';
 
-import '../components/button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     double coverHeight = MediaQuery.of(context).size.height / 4;
     double profileHeight = MediaQuery.of(context).size.height / 6;
     double top = coverHeight - profileHeight / 2;
@@ -48,7 +49,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         );
 
-    // Content of Profile
+    void logoutUser(){
+      String response = AuthMethods().logout();
+      if(response == 'success'){
+        Navigator.pop(context);
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -68,6 +74,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const ListTile(
             leading: Icon(Icons.location_city_outlined),
             title: Text('France'),
+          ),
+          SizedBox(
+            height: screenWidth * 0.12,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                logoutUser();
+              },
+              child: const Text('Logout'),
+            ),
           ),
         ],
       ),

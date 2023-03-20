@@ -44,6 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (response == 'success' && mounted) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeFeedScreen()));
+      _passwordController.clear();
+      _emailController.clear();
     } else {
       setState(() {
         isLoading = false;
@@ -127,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-              SizedBox(height: screenHeight * 0.02),
               SizedBox(height: screenHeight * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

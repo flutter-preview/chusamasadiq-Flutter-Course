@@ -39,4 +39,27 @@ class AuthMethods {
     }
     return response;
   }
+
+  // Forgot Password Function
+  Future<String> forgotPassword({
+    required String email,
+  }) async {
+    String response;
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: email.toString(),
+      );
+      response = 'success';
+    } on FirebaseAuthException catch (ex) {
+      return response = (ex.message.toString());
+    }
+    return response;
+  }
+
+  // Logout Function
+  String logout() {
+    _auth.signOut();
+    String response = 'success';
+    return response;
+  }
 }
