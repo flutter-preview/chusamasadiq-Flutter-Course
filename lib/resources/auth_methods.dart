@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthMethods {
   // Firebase Auth Instance
@@ -15,6 +16,14 @@ class AuthMethods {
         email: email.toString(),
         password: password.toString(),
       );
+
+      // SharedPreferences Instance
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      //  Storing email in Shared Preferences
+      sharedPreferences.setString('email', email.toString());
+
       response = 'success';
     } on FirebaseAuthException catch (ex) {
       return response = (ex.message.toString());
@@ -33,6 +42,14 @@ class AuthMethods {
         email: email.toString(),
         password: password.toString(),
       );
+
+      // SharedPreferences Instance
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      //  Storing email in Shared Preferences
+      sharedPreferences.setString('email', email.toString());
+
       response = 'success';
     } on FirebaseAuthException catch (ex) {
       return response = (ex.message.toString());
@@ -57,9 +74,10 @@ class AuthMethods {
   }
 
   // Logout Function
-  String logout() {
+  void logout() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    sharedPreferences.remove('email');
     _auth.signOut();
-    String response = 'success';
-    return response;
   }
 }

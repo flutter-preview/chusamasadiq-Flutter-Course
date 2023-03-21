@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/resources/auth_methods.dart';
-
+import 'package:fluttercourse/screen/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -49,13 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         );
 
-    void logoutUser(){
-      String response = AuthMethods().logout();
-      if(response == 'success'){
-        Navigator.pop(context);
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Fabien'),
@@ -79,8 +72,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: screenWidth * 0.12,
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                logoutUser();
+              onPressed: () async {
+                AuthMethods().logout();
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
               },
               child: const Text('Logout'),
             ),
