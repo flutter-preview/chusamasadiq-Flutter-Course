@@ -16,6 +16,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
+  late final TextEditingController _usernameController =
+      TextEditingController();
+  late final TextEditingController _phoneNoController = TextEditingController();
   late bool isLoading = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -27,6 +30,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String response = await AuthMethods().signUpUser(
       email: _emailController.text.toString(),
       password: _passwordController.text.toString(),
+      phoneNo: _phoneNoController.text.toString(),
+      username: _usernameController.text.toString(),
     );
     setState(() {
       setState(() {
@@ -68,12 +73,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: screenWidth * 0.04),
                   TextFieldWidget(
+                    controller: _usernameController,
+                    labelText: 'Username',
+                    hintText: 'Username',
+                    onValidator: (value) =>
+                        (value.isEmpty) ? 'Enter your username' : null,
+                  ),
+                  SizedBox(height: screenWidth * 0.04),
+                  TextFieldWidget(
                     controller: _emailController,
                     labelText: 'Email',
                     hintText: 'Email',
                     onValidator: (value) =>
                         (value.isEmpty) ? 'Enter your email' : null,
                   ),
+                  SizedBox(height: screenWidth * 0.04),
+                  TextFieldWidget(
+                      controller: _phoneNoController,
+                      labelText: 'Phone Number',
+                      hintText: 'Phone Number',
+                      onValidator: (value) {
+                        if (value.isEmpty) {
+                          return 'Enter your phone number';
+                        } else if (value.length < 10) {
+                          return 'Phone number must be at least 10 characters';
+                        } else {
+                          return null;
+                        }
+                      }),
                   SizedBox(height: screenWidth * 0.04),
                   TextFieldWidget(
                       controller: _passwordController,

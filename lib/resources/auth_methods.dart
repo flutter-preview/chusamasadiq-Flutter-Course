@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -5,10 +6,15 @@ class AuthMethods {
   // Firebase Auth Instance
   final _auth = FirebaseAuth.instance;
 
+  // Firebase Firestore Instance
+  final _firestore = FirebaseFirestore.instance;
+
   // Sign Up User Function
   Future<String> signUpUser({
     required String email,
     required String password,
+    required String phoneNo,
+    required String username,
   }) async {
     String response;
     try {
@@ -23,6 +29,13 @@ class AuthMethods {
 
       //  Storing email in Shared Preferences
       sharedPreferences.setString('email', email.toString());
+
+      // Store Data into Cloud Firestore
+      _firestore.collection('users').doc(_auth.currentUser?.uid).set({
+        'username': username.toString(),
+        'email': email.toString(),
+        'phoneNo': phoneNo.toString(),
+      });
 
       response = 'success';
     } on FirebaseAuthException catch (ex) {
