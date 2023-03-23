@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/components/textfield_widget.dart';
 import 'package:fluttercourse/screen/forgot_screen.dart';
+import 'package:fluttercourse/screen/otp_screen.dart';
 import 'package:fluttercourse/screen/signup_screen.dart';
 import '../resources/auth_methods.dart';
 import '../utils/utils.dart';
@@ -139,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
+                          builder: (context) => const PhoneVerificationScreen(),
                         ),
                       );
                     },

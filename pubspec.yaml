@@ -40,6 +40,9 @@ dependencies:
   fluttertoast: ^8.2.1
   shared_preferences: ^2.0.18
   cloud_firestore: ^4.4.5
+  intl_phone_field: ^3.1.0
+  pin_code_fields: ^7.4.0
+
 
 dev_dependencies:
   flutter_test:
