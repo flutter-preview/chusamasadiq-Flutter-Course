@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/screen/login_screen.dart';
 import 'package:fluttercourse/screen/otpverify_screen.dart';
+import 'package:fluttercourse/utils/utils.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
@@ -14,8 +16,48 @@ class PhoneVerificationScreen extends StatefulWidget {
 class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late bool isLoading = false;
+  String verID = ' ';
   final TextEditingController _phoneNoController = TextEditingController();
   String countryDial = '+33';
+
+  Future<void> verifyPhone(String phoneNumber) async {
+    setState(() {
+      isLoading = true;
+    });
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: (PhoneAuthCredential credential) {
+        setState(() {
+          isLoading = false;
+        });
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        Utils.toastMessage(e.message.toString());
+        setState(() {
+          isLoading = false;
+        });
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        Utils.toastMessage('OTP has sent to your phone number');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OTPVerificationScreen(
+              verId: verID,
+              dialCode: countryDial,
+              phoneNumber: _phoneNoController.text.toString(),
+            ),
+          ),
+        );
+        setState(() {
+          verID = verificationId;
+          isLoading = false;
+        });
+      },
+      codeAutoRetrievalTimeout: (e) {},
+    );
+  }
 
   @override
   void dispose() {
@@ -83,13 +125,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // if (_formKey.currentState!.validate()) {}
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OTPVerificationScreen(),
-                      ),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      verifyPhone(countryDial +_phoneNoController.text.toString());
+                    }
                   },
                   child: isLoading
                       ? const Center(
