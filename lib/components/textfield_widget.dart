@@ -8,7 +8,6 @@ class TextFieldWidget extends StatelessWidget {
   late bool enabled;
   dynamic onValidator;
 
-
   TextFieldWidget({
     super.key,
     required this.controller,
@@ -27,12 +26,14 @@ class TextFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       controller: controller,
       decoration: InputDecoration(
-        labelText: labelText.toString(),
-        hintText: hintText.toString(),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(),
-        ),
-      ),
+          labelText: labelText.toString(),
+          hintText: hintText.toString(),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(),
+          ),
+          disabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(),
+          )),
     );
   }
 }
