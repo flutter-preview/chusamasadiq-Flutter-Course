@@ -5,7 +5,9 @@ class TextFieldWidget extends StatelessWidget {
   late String? labelText;
   late String? hintText;
   late bool obscureText;
+  late bool enabled;
   dynamic onValidator;
+
 
   TextFieldWidget({
     super.key,
@@ -14,11 +16,13 @@ class TextFieldWidget extends StatelessWidget {
     required this.hintText,
     required this.onValidator,
     this.obscureText = false,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       validator: onValidator,
       obscureText: obscureText,
       controller: controller,

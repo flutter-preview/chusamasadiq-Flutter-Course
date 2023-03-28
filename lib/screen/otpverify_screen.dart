@@ -43,7 +43,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const SignUpScreen(),
+            builder: (context) => SignUpScreen(
+              countryCode: widget.dialCode,
+              phoneNo: widget.phoneNumber,
+            ),
           ),
         );
       });

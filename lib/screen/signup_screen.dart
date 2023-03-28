@@ -5,8 +5,12 @@ import 'package:fluttercourse/screen/login_screen.dart';
 import 'package:fluttercourse/utils/utils.dart';
 import '../components/textfield_widget.dart';
 
+// ignore: must_be_immutable
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  late String phoneNo;
+  late String countryCode;
+
+  SignUpScreen({super.key, required this.countryCode, required this.phoneNo});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -20,8 +24,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   late final TextEditingController _phoneNoController = TextEditingController();
   late bool isLoading = false;
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _phoneNoController.text = widget.countryCode + widget.phoneNo;
+  }
 
   void signUpUser() async {
     setState(() {
@@ -89,6 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: screenWidth * 0.04),
                   TextFieldWidget(
+                      enabled: false,
                       controller: _phoneNoController,
                       labelText: 'Phone Number',
                       hintText: 'Phone Number',
