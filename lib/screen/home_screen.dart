@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/screen/favourite_screen.dart';
+import 'package:fluttercourse/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,17 +11,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> foodImages = [
-    'assets/images/Kabab.jpg',
-    'assets/images/Biryani.jpg',
-    'assets/images/burger.jpg',
-    'assets/images/HotWings.jpg',
-  ];
-
-  List<String> foodNames = ['Kabab', 'Biryani', 'Burger', 'Hot Wings'];
-
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -42,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: screenHeight /50),
               Container(
-                height: 55,
+                height: screenHeight / 15,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
@@ -65,84 +61,120 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 160,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: foodImages.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.orangeAccent,
-                                ),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 4 / 3,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
-                                    foodImages[index],
-                                    fit: BoxFit.cover,
+                height: screenHeight / 5,
+                child: FutureBuilder<QuerySnapshot>(
+                  future: FirebaseFirestore.instance.collection('food').get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      if (snapshot.hasError) {
+                        return Utils.toastMessage('Some went wrong');
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    final List<DocumentSnapshot> foodList = snapshot.data!.docs;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: foodList.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: Colors.orangeAccent,
+                                    ),
+                                  ),
+                                  child: AspectRatio(
+                                    aspectRatio: 4 / 3,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(
+                                        foodList[index]['foodImage'],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              Text(
+                                foodList[index]['foodName'],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            foodNames[index],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     );
                   },
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: screenHeight / 75),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Menu'),
-                  Text(
-                    'View all',
-                    style: TextStyle(color: Colors.orange),
+                children: [
+                  const Text('Menu'),
+                  TextButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FavouriteScreen(),
+                      ),
+                    ),
+                    child: const Text(
+                      'View all',
+                      style: TextStyle(color: Colors.orange),
+                    ),
                   )
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight / 50),
               Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: foodImages.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Container(
-                            height: 220,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.orangeAccent,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(foodImages[index]),
+                child: FutureBuilder(
+                  future: FirebaseFirestore.instance.collection('food').get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      if (snapshot.hasError) {
+                        return Utils.toastMessage('Some went wrong');
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    final List<DocumentSnapshot> foodList = snapshot.data!.docs;
+
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: foodList.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Container(
+                                height: screenHeight / 4,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.orangeAccent,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        foodList[index]['foodImage']),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
+                          ],
+                        );
+                      },
                     );
                   },
                 ),
