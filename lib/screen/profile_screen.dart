@@ -20,7 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     // Cover Image
     Widget buildCoverImage() => Image.asset(
-          'assets/images/28.jpg',
+          'assets/images/profile-cover.png',
           width: double.infinity,
           height: coverHeight,
           fit: BoxFit.cover,
@@ -56,18 +56,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         children: [
           buildTop(),
+          const Divider(),
           const ListTile(
             leading: Icon(Icons.person),
             title: Text('Fabien'),
           ),
+          const Divider(),
           const ListTile(
             leading: Icon(Icons.email),
             title: Text('abc@gmail.com'),
           ),
+          const Divider(),
           const ListTile(
             leading: Icon(Icons.location_city_outlined),
             title: Text('France'),
           ),
+          const Divider(),
           SizedBox(
             height: screenWidth * 0.12,
             width: double.infinity,

@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   Image.asset(
                     'assets/images/online-delivery.png',
-                    scale: 1.5,
+                    scale: 5,
                   ),
                   SizedBox(height: screenWidth * 0.04),
                   TextFieldWidget(

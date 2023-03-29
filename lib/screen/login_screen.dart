@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Image.asset(
                 'assets/images/online-delivery.png',
-                scale: 1.5,
+                scale: 5,
               ),
               TextFieldWidget(
                 controller: _emailController,

@@ -82,7 +82,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
             children: [
               Image.asset(
                 'assets/images/online-delivery.png',
-                scale: 1.5,
+                scale: 5,
               ),
               Text(
                 "Welcome to Delivery app!",

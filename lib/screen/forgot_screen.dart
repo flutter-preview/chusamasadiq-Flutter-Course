@@ -61,7 +61,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             children: [
               Image.asset(
                 'assets/images/online-delivery.png',
-                scale: 1.5,
+                scale: 5,
               ),
               TextFieldWidget(
                 controller: _emailController,
