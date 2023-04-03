@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercourse/screen/favourite_screen.dart';
 import 'package:fluttercourse/screen/home_screen.dart';
+import 'package:fluttercourse/screen/location.dart';
 import 'package:fluttercourse/screen/profile_screen.dart';
 
 class HomeFeedScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
   final List<Widget> _screens = <Widget>[
     const HomeScreen(),
     const FavouriteScreen(),
+    const LocationScreen(),
     const ProfileScreen()
   ];
 
@@ -29,7 +31,8 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
         child: _screens.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        type: BottomNavigationBarType.fixed,
+        items:  const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -37,6 +40,10 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
             label: 'Favourite',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.location_on),
+            label: 'Location'
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

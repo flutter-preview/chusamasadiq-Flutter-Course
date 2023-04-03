@@ -4,7 +4,9 @@
         android:label="fluttercourse"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <activity
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyA2PTcHC2Kh1qmqLJtYYpYrMtBE-3uUlxA"/>
+       <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
