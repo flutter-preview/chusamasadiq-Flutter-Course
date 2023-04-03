@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Delivery App'),
+          automaticallyImplyLeading: false,
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 10),

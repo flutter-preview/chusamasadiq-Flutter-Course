@@ -73,6 +73,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const Divider(),
           SizedBox(
+            height: screenWidth / 20,
+          ),
+          SizedBox(
             height: screenWidth * 0.12,
             width: double.infinity,
             child: ElevatedButton(
