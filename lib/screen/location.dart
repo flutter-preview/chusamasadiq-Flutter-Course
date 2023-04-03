@@ -25,7 +25,7 @@ class _LocationScreenState extends State<LocationScreen> {
     Marker(
       markerId: MarkerId('2'),
       position: LatLng(46.2044, 6.1432),
-      infoWindow: InfoWindow(title: 'Geneve'),
+      infoWindow: InfoWindow(title: 'Geneva'),
     ),
   ];
 
