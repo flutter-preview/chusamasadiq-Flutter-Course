@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/resources/getlocation.dart';
 import 'package:fluttercourse/screen/favourite_screen.dart';
 import 'package:fluttercourse/utils/utils.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,6 +13,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double? lan;
+  double? lat;
+
+  getUserLocation() {
+    Future<Position> location = GetUserLocation().getCurrentLocation();
+    location.then((value) {
+      lan = value.longitude;
+      lat = value.latitude;
+
+      print(lan);
+      print(lat);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserLocation();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

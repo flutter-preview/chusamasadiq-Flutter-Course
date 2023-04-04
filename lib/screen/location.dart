@@ -33,7 +33,6 @@ class _LocationScreenState extends State<LocationScreen> {
   static const CameraPosition _kGooglePlex =
       CameraPosition(target: LatLng(45.9382, 6.0910), zoom: 14);
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -55,6 +54,17 @@ class _LocationScreenState extends State<LocationScreen> {
             _controller.complete(controller);
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          GoogleMapController controller = await _controller.future;
+          controller.animateCamera(
+            CameraUpdate.newCameraPosition(
+              const CameraPosition(target: LatLng(45.9382, 6.0910), zoom: 14),
+            ),
+          );
+        },
+        child: const Icon(Icons.location_searching),
       ),
     );
   }
