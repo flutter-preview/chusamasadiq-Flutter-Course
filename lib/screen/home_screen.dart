@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttercourse/resources/getlocation.dart';
 import 'package:fluttercourse/screen/favourite_screen.dart';
 import 'package:fluttercourse/utils/utils.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,16 +17,34 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double? lan;
   double? lat;
+  String? userLocation;
 
   getUserLocation() {
     Future<Position> location = GetUserLocation().getCurrentLocation();
-    location.then((value) {
-      lan = value.longitude;
-      lat = value.latitude;
+    location.then(
+      (value) {
+        lat = value.latitude;
+        lan = value.longitude;
 
-      print(lan);
-      print(lat);
-    });
+        getLocationFromLatLng(value.latitude, value.longitude);
+      },
+    ).catchError(
+      (error) {
+        return Utils.toastMessage(error.toString());
+      },
+    );
+  }
+
+  // Get Location from Latitude and Longitude
+  Future<void> getLocationFromLatLng(latitude, longitude) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+    Placemark place = placemarks[0];
+    setState(
+      () {
+        userLocation = '${place.locality}, ${place.country}';
+      },
+    );
   }
 
   @override
@@ -68,7 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              SizedBox(height: screenHeight / 50),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 0),
+                leading: const Icon(Icons.location_on),
+                title: userLocation != null
+                    ? Text(userLocation.toString())
+                    : const Text('Turn on Location'),
+                minLeadingWidth: 5,
+                horizontalTitleGap: 5,
+              ),
               Container(
                 height: screenHeight / 15,
                 decoration: BoxDecoration(
