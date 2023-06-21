@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:io' as io;
+import '../models/cart.dart';
 
 class DBHelper {
   static Database? _db;
@@ -22,6 +22,19 @@ class DBHelper {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE food (foodID VARCHAR UNIQUE, foodName TEXT, foodPrice number');
+        'CREATE TABLE food (foodID VARCHAR UNIQUE, foodName TEXT, foodPrice INTEGER, quantity INTEGER, foodImage TEXT, deliveryCharges INTEGER, foodTotalPrice INTEGER');
+  }
+
+  Future<Cart> insert(Cart cart) async {
+    var dbClient = await db;
+    await dbClient!.insert('cart', cart.toMap());
+    return cart;
+  }
+
+  Future<List<Cart>> getCartList() async {
+    var dbClient = await db;
+    final List<Map<String, Object?>> queryResult =
+        await dbClient!.query("food");
+    return queryResult.map((e) => Cart.fromMap(e)).toList();
   }
 }
