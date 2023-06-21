@@ -5,6 +5,8 @@ import 'package:fluttercourse/screen/location.dart';
 import 'package:fluttercourse/screen/profile_screen.dart';
 
 class HomeFeedScreen extends StatefulWidget {
+  const HomeFeedScreen({super.key});
+
   @override
   State<HomeFeedScreen> createState() => _HomeFeedScreenState();
 }

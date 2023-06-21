@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if (response == 'success' && mounted) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeFeedScreen()));
+          context, MaterialPageRoute(builder: (context) => const HomeFeedScreen()));
       _passwordController.clear();
       _emailController.clear();
     } else {

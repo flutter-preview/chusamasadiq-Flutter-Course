@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (loggedInEmail != null && mounted) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeFeedScreen()));
+          context, MaterialPageRoute(builder: (context) => const HomeFeedScreen()));
     } else {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const LoginScreen()));

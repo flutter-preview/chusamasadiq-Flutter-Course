@@ -50,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
     if (response == 'success' && mounted) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeFeedScreen()));
+          context, MaterialPageRoute(builder: (context) => const HomeFeedScreen()));
     } else {
       setState(() {
         isLoading = false;
