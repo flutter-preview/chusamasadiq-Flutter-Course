@@ -37,4 +37,30 @@ class DBHelper {
         await dbClient!.query("food");
     return queryResult.map((e) => Cart.fromMap(e)).toList();
   }
+
+  Future<int> delete(String foodID) async {
+    var dbClient = await db;
+    return await dbClient!.delete(
+      'food',
+      where: 'foodID = ?',
+      whereArgs: [foodID],
+    );
+  }
+
+  Future<void> deleteAll() async {
+    final db = await this.db;
+    if (db != null) {
+      await db.delete('food');
+    }
+  }
+
+  Future<int> updateQuantity(Cart cart) async {
+    var dbClient = await db;
+    return await dbClient!.update(
+      'food',
+      cart.toMap(),
+      where: 'foodID = ?',
+      whereArgs: [cart.foodID],
+    );
+  }
 }
