@@ -4,6 +4,7 @@ import 'package:fluttercourse/screen/signup_screen.dart';
 import 'package:fluttercourse/utils/utils.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+// ignore: must_be_immutable
 class OTPVerificationScreen extends StatefulWidget {
   late String verId;
   late String dialCode;

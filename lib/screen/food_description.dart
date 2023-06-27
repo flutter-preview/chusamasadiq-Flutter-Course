@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../components/button.dart';
 
+// ignore: must_be_immutable
 class FoodDescription extends StatelessWidget {
   late String foodName;
   late int foodPrice;
