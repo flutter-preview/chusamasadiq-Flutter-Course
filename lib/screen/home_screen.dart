@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/provider/cart_provider.dart';
 import 'package:fluttercourse/resources/getlocation.dart';
 import 'package:fluttercourse/screen/favourite_screen.dart';
 import 'package:fluttercourse/utils/utils.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'cart_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,10 +65,34 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: const Text('Delivery App'),
           automaticallyImplyLeading: false,
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.shopping_cart),
+          actions: [
+            InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: Badge(
+                    backgroundColor: Colors.orange,
+                    label: Consumer<CartProvider>(
+                        builder: (context, value, child) {
+                      return Text(
+                        value.getCounter().toString(),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
+                      );
+                    }),
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Icon(Icons.shopping_cart),
+                    ),
+                  ),
+                ),
+              ),
             )
           ],
         ),

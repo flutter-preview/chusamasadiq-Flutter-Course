@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercourse/provider/cart_provider.dart';
 import 'package:fluttercourse/screen/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -14,23 +16,30 @@ class FlutterCourse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          elevation: 5,
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-          ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
         ),
-        useMaterial3: true,
-        colorSchemeSeed: Colors.orange,
-        scaffoldBackgroundColor: Colors.white,
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            elevation: 5,
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          useMaterial3: true,
+          colorSchemeSeed: Colors.orange,
+          scaffoldBackgroundColor: Colors.white,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const SplashScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
     );
   }
 }
